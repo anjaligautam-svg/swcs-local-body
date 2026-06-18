@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+/* Per-portal accent themes. Each portal sets data-portal=<role> on its root,
+   and every `accent-*` class below re-themes to that portal's colour — so the
+   three portals look like three separate products, not one app re-skinned. */
+:root,
+[data-portal='Supervisor'] {
+  --c-accent-50: 238 244 255;
+  --c-accent-100: 219 230 255;
+  --c-accent-200: 191 210 255;
+  --c-accent-500: 37 99 235;
+  --c-accent-600: 29 78 216;
+  --c-accent-700: 30 64 175;
+  --c-accent-800: 30 58 138;
+  --c-accent-900: 23 37 84;
+}
+[data-portal='Surveyor'] {
+  --c-accent-50: 240 253 250;
+  --c-accent-100: 204 251 241;
+  --c-accent-200: 153 246 228;
+  --c-accent-500: 20 184 166;
+  --c-accent-600: 13 148 136;
+  --c-accent-700: 15 118 110;
+  --c-accent-800: 17 94 89;
+  --c-accent-900: 19 78 74;
+}
+[data-portal='FinalAuthority'] {
+  --c-accent-50: 245 243 255;
+  --c-accent-100: 237 233 254;
+  --c-accent-200: 221 214 254;
+  --c-accent-500: 139 92 246;
+  --c-accent-600: 124 58 237;
+  --c-accent-700: 109 40 217;
+  --c-accent-800: 91 33 182;
+  --c-accent-900: 76 29 149;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-100 text-slate-800 antialiased;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* ---- Reusable component classes (kept small + consistent) ---- */
+@layer components {
+  .card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-card;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold
+           transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-accent-700 text-white hover:bg-accent-800 focus-visible:ring-accent-600;
+  }
+  .btn-secondary {
+    @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400;
+  }
+  .btn-danger {
+    @apply border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 focus-visible:ring-red-400;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-400;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800
+           placeholder:text-slate-400 focus:border-accent-600 focus:outline-none focus:ring-2 focus:ring-accent-100;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500;
+  }
+}
+
+/* Hide native scrollbar chrome but keep scroll (queue lists) */
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300;
+}
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---- Print: only the certificate sheet shows, edge-to-edge and clean ---- */
+@media print {
+  body {
+    background: #fff;
+  }
+  /* Hide everything, then reveal only the certificate sheet. Robust against
+     surrounding app chrome (top bar, nav, toolbars). */
+  body * {
+    visibility: hidden;
+  }
+  .print-sheet,
+  .print-sheet * {
+    visibility: visible;
+  }
+  .print-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none !important;
+    border-width: 2px !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+}
