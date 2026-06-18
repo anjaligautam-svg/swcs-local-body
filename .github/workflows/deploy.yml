@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, local-body-approvals]
   workflow_dispatch:
 
 # Permissions the GITHUB_TOKEN needs to publish to Pages.
