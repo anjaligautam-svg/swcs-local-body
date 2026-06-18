@@ -1,5 +1,8 @@
 # SWCS · Local Body Approvals (NMRDA) — Clickable Prototype
 
+**▶ Live demo:** https://anjaligautam-svg.github.io/swcs-local-body/
+_(auto-deployed from the `local-body-approvals` branch via GitHub Actions → Pages)_
+
 A front-end **prototype** of the Local Body (NMRDA) approvals module that lives
 *inside* the SWCS Single Window Clearance System. It is built as **three
 separate, self-contained portals** — Supervisor, Surveyor, Final Authority —
